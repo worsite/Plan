@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>KAFEL · Propuesta Estratégica</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0D1117;
+  --surface:#161B27;
+  --surface2:#1E2535;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.13);
+  --gold:#C9A84C;
+  --gold2:#E8C97A;
+  --gold-bg:rgba(201,168,76,0.08);
+  --gold-border:rgba(201,168,76,0.22);
+  --text:#F0F2F5;
+  --text2:#8B92A5;
+  --text3:#5A6070;
+  --r:14px;
+  --r-sm:8px;
+}
+html{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif}
+body{min-height:100vh;max-width:480px;margin:0 auto;padding-bottom:5rem}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 1rem}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 0 0.25rem}
+.brand{font-size:1.1rem;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.brand-sub{font-size:0.56rem;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase}
+.nav-tabs{display:flex;overflow-x:auto;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.tab{background:none;border:none;cursor:pointer;color:var(--text3);font-family:'Inter',sans-serif;font-size:0.67rem;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap;padding:0.62rem 0.8rem;border-bottom:2px solid transparent;transition:all 0.2s}
+.tab:hover{color:var(--text2)}
+.tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ── PAGES ── */
+.page{display:none}
+.page.on{display:block;animation:fi 0.25s ease}
+@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.wrap{padding:1.2rem 1rem 1.5rem}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--surface2) 0%,#111827 100%);border:1px solid var(--gold-border);border-radius:var(--r);padding:1.8rem 1.4rem;margin-bottom:1rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.08),transparent 70%);pointer-events:none}
+.pill{display:inline-flex;align-items:center;gap:5px;background:var(--gold-bg);border:1px solid var(--gold-border);color:var(--gold);font-size:0.59rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:0.24rem 0.7rem;border-radius:20px;margin-bottom:1rem}
+.hero h1{font-size:1.6rem;font-weight:800;line-height:1.2;margin-bottom:0.7rem;color:var(--text)}
+.hero h1 span{color:var(--gold)}
+.hero p{font-size:0.82rem;color:var(--text2);line-height:1.75;font-weight:300}
+
+/* ── KPI ── */
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.55rem;margin-bottom:1rem}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:0.9rem 0.5rem;text-align:center}
+.kpi-n{font-size:1.45rem;font-weight:800;color:var(--gold);display:block;line-height:1}
+.kpi-l{font-size:0.59rem;color:var(--text3);margin-top:0.3rem;line-height:1.3}
+
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin-bottom:0.75rem}
+.card.gl{border-left:3px solid var(--gold)}
+.cat-lbl{font-size:0.59rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:0.45rem}
+.card h3{font-size:0.93rem;font-weight:700;margin-bottom:0.45rem;color:var(--text)}
+.card p{font-size:0.81rem;color:var(--text2);line-height:1.75;font-weight:300}
+.hl{color:var(--gold);font-weight:500}
+
+/* ── SEC HEADER ── */
+.sh{padding:0.4rem 0 1.1rem}
+.sh h2{font-size:1.35rem;font-weight:800;color:var(--text)}
+.sh p{font-size:0.77rem;color:var(--text3);margin-top:0.22rem}
+
+/* ── ALCANCE ── */
+.formula-box{background:var(--gold-bg);border:1px solid var(--gold-border);border-radius:var(--r-sm);padding:0.95rem;margin-bottom:0.9rem;font-size:0.75rem;color:var(--text2);line-height:1.7}
+.formula-box strong{color:var(--gold);font-weight:600}
+
+.slider-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin-bottom:0.75rem}
+.slider-card h4,.res-card h4,.chart-card h4{font-size:0.6rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:1rem}
+.sl{margin-bottom:0.95rem}
+.sl:last-child{margin-bottom:0}
+.sl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.45rem}
+.sl-name{font-size:0.79rem;color:var(--text);font-weight:400}
+.sl-val{font-size:0.88rem;color:var(--gold);font-weight:700}
+.sl-note{font-size:0.66rem;color:var(--text3);margin-top:0.22rem;line-height:1.4}
+input[type=range]{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:var(--surface2);border-radius:2px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--gold);cursor:pointer;border:2px solid var(--bg)}
+
+.res-card{background:var(--surface2);border:1px solid var(--gold-border);border-radius:var(--r);padding:1.2rem;margin-bottom:0.75rem}
+.rr{display:flex;justify-content:space-between;align-items:center;padding:0.58rem 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.rr:last-child{border:none}
+.rl{font-size:0.74rem;color:var(--text2);font-weight:300}
+.rv{font-size:0.98rem;color:var(--gold2);font-weight:700}
+.rr.tot .rl{color:var(--text);font-weight:500}
+.rr.tot .rv{font-size:1.15rem;color:var(--gold)}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem}
+
+/* ── OBJETIVOS ── */
+.obj-list{display:flex;flex-direction:column;gap:0.6rem}
+.oi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;display:flex;align-items:flex-start;gap:0.85rem;position:relative;transition:border-color 0.2s}
+.oi:hover{border-color:var(--gold-border)}
+.on{font-size:1.2rem;font-weight:800;color:rgba(201,168,76,0.25);min-width:24px;line-height:1}
+.ob{flex:1}
+.ot{font-size:0.83rem;font-weight:600;color:var(--text);line-height:1.3}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);color:var(--text3);font-size:0.58rem;font-weight:700;cursor:pointer;vertical-align:middle;margin-left:4px;transition:all 0.15s;flex-shrink:0}
+.ib:hover{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.tip{display:none;background:var(--surface2);border:1px solid var(--gold-border);border-radius:var(--r-sm);padding:0.8rem 0.9rem;margin-top:0.6rem;font-size:0.74rem;color:var(--text2);line-height:1.65;font-weight:300}
+.tip.show{display:block}
+
+/* ── MUNICIPIOS GRID ── */
+.muni-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.9rem}
+.muni-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:0.85rem 0.9rem;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.muni-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.muni-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.muni-card.sel{border-color:var(--gold-border);background:rgba(201,168,76,0.06)}
+.mc-name{font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:0.18rem}
+.mc-sub{font-size:0.64rem;color:var(--text3);font-weight:300}
+.mc-badge{display:inline-block;font-size:0.58rem;font-weight:600;color:var(--gold);background:var(--gold-bg);padding:0.15rem 0.45rem;border-radius:10px;margin-top:0.35rem}
+
+/* ── PANEL MUNICIPIO ── */
+.muni-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin-bottom:0.75rem}
+.mp-empty{text-align:center;padding:2rem 1rem;color:var(--text3);font-size:0.8rem;line-height:1.7}
+.mp-head{display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:1rem}
+.mp-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;margin-top:5px}
+.mp-name{font-size:1.05rem;font-weight:800;color:var(--text)}
+.mp-desc{font-size:0.67rem;color:var(--text3);font-weight:300;margin-top:0.15rem}
+.data-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.55rem;margin-bottom:1rem}
+.dc{background:var(--surface2);border-radius:var(--r-sm);padding:0.65rem 0.75rem}
+.dc .dl{font-size:0.6rem;color:var(--text3);margin-bottom:0.2rem}
+.dc .dv{font-size:0.95rem;font-weight:700;color:var(--text)}
+.dc .dv.gold{color:var(--gold)}
+.calc-mini{background:var(--surface2);border:1px solid var(--gold-border);border-radius:var(--r-sm);padding:1rem;margin-bottom:0.7rem}
+.calc-mini h5{font-size:0.59rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:0.85rem}
+.msl{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem}
+.msl label{font-size:0.69rem;color:var(--text3);min-width:95px;font-weight:300}
+.msl input{flex:1}
+.msl span{font-size:0.74rem;color:var(--gold);font-weight:700;min-width:38px;text-align:right}
+.impact-box{background:var(--gold-bg);border:1px solid var(--gold-border);border-radius:var(--r-sm);padding:1rem;text-align:center;margin-bottom:0.65rem}
+.impact-num{font-size:1.7rem;font-weight:800;color:var(--gold);display:block;font-family:'Playfair Display',serif}
+.impact-lbl{font-size:0.7rem;color:var(--text2);margin:0.2rem 0}
+.impact-pct{font-size:0.78rem;font-weight:600;color:var(--gold2)}
+.impact-acum{font-size:0.68rem;color:var(--text3);margin-top:0.35rem}
+.impact-acum strong{color:var(--gold)}
+.fnote{font-size:0.65rem;color:var(--text3);line-height:1.5;padding:0.65rem 0.75rem;background:var(--surface2);border-radius:var(--r-sm)}
+
+/* ── WHATSAPP BUTTON ── */
+.wa-btn{width:52px;height:52px;padding:0;justify-content:center;
+  position:fixed;bottom:1.2rem;right:1.1rem;z-index:300;
+  display:flex;align-items:center;gap:0.55rem;
+  background:#25D366;color:#fff;
+  border:none;border-radius:50px;
+  padding:0.7rem 1.1rem 0.7rem 0.85rem;
+  font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;
+  cursor:pointer;
+  box-shadow:0 4px 20px rgba(37,211,102,0.35);
+  transition:all 0.2s;
+  text-decoration:none;
+}
+.wa-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(37,211,102,0.45)}
+.wa-btn:active{transform:scale(0.97)}
+.wa-icon{width:22px;height:22px;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-top">
+    <div>
+      <div class="brand">KAFEL</div>
+      <div class="brand-sub">Estrategia Digital · 2026–2027</div>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <button class="tab on"  onclick="go('propuesta',this)">Propuesta</button>
+    <button class="tab"     onclick="go('alcance',this)">Alcance</button>
+    <button class="tab"     onclick="go('objetivos',this)">Objetivos</button>
+    <button class="tab"     onclick="go('control',this)">Regional</button>
+  </div>
+</nav>
+
+<!-- ════ PROPUESTA ════ -->
+<div id="pg-propuesta" class="page on">
+<div class="wrap">
+  <div class="hero">
+    <div class="pill">Propuesta Estratégica · Risaralda · Oct 2027</div>
+    <h1>Publicidad que <span>nunca</span> deja de trabajar</h1>
+    <p>Cada catálogo digital y página web que KAFEL crea lleva la campaña incorporada. Mientras el empresario venda y sus clientes compren, la campaña sigue apareciendo — sin costo adicional y sin fecha de vencimiento.</p>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi"><span class="kpi-n">+500</span><span class="kpi-l">Días de visibilidad</span></div>
+    <div class="kpi"><span class="kpi-n">3</span><span class="kpi-l">Beneficiados por catálogo</span></div>
+    <div class="kpi"><span class="kpi-n">14</span><span class="kpi-l">Municipios</span></div>
+  </div>
+  <div class="card gl">
+    <div class="cat-lbl">El problema</div>
+    <h3>La publicidad física es momentánea</h3>
+    <p>Un volante dura horas. Un pendón se ve solo mientras estás frente a él. Con KAFEL, cada catálogo o página web que el empresario comparte es publicidad activa de la campaña: cada vez que vende, apareces tú.</p>
+  </div>
+  <div class="card gl">
+    <div class="cat-lbl">La solución</div>
+    <h3>Digitalización con propósito político</h3>
+    <p>KAFEL crea catálogos interactivos y páginas web para micro, pequeños y medianos empresarios de Risaralda. En cada recurso, la campaña tiene presencia integrada. El empresario comparte → los clientes ven → la campaña gana reconocimiento orgánico, constante y escalable.</p>
+  </div>
+  <div class="card">
+    <div class="cat-lbl">Triple beneficio</div>
+    <h3>Todos ganan, siempre</h3>
+    <p><span class="hl">Para el empresario —</span> Herramientas digitales para vender más y llegar a más clientes.<br><br>
+    <span class="hl">Para el comprador —</span> Acceso permanente a catálogos actualizados de negocios locales.<br><br>
+    <span class="hl">Para la campaña —</span> Reconocimiento regional genuino, contacto directo con líderes locales y red de difusión que crece sola con cada venta.</p>
+  </div>
+</div>
+</div>
+
+<!-- ════ ALCANCE ════ -->
+<div id="pg-alcance" class="page">
+<div class="wrap">
+  <div class="sh"><h2>Calculadora de Alcance</h2><p>Proyección realista — números verificables</p></div>
+  <div class="formula-box">
+    <strong>Fórmula exacta:</strong><br>
+    · Catálogo: catálogos × contactos únicos × % apertura = personas/mes<br>
+    · Web: páginas × visitas/mes<br>
+    · Total = catálogos + web · Acumulado = total × meses<br>
+    <br><span style="color:var(--text3)">Ej. base: 40 × 400 × 30% = 4.800 + 10 × 80 = 800 = <strong style="color:var(--gold)">5.600/mes</strong></span>
+  </div>
+  <div class="slider-card">
+    <h4>Parámetros</h4>
+    <div class="sl">
+      <div class="sl-top"><span class="sl-name">Empresarios vinculados</span><span class="sl-val" id="v_emp">50</span></div>
+      <input type="range" min="5" max="400" value="50" step="5" id="s_emp" oninput="recalc()">
+      <div class="sl-note">Total que reciben apoyo digital</div>
+    </div>
+    <div class="sl">
+      <div class="sl-top"><span class="sl-name">Con catálogo digital</span><span class="sl-val" id="v_cat">40</span></div>
+      <input type="range" min="1" max="400" value="40" step="1" id="s_cat" oninput="recalc()">
+      <div class="sl-note">Subconjunto con catálogo activo</div>
+    </div>
+    <div class="sl">
+      <div class="sl-top"><span class="sl-name">Con página web</span><span class="sl-val" id="v_pag">10</span></div>
+      <input type="range" min="0" max="200" value="10" step="1" id="s_pag" oninput="recalc()">
+      <div class="sl-note">Subconjunto con página web</div>
+    </div>
+    <div class="sl">
+      <div class="sl-top"><span class="sl-name">Contactos únicos / empresario</span><span class="sl-val" id="v_con">400</span></div>
+      <input type="range" min="50" max="1500" value="400" step="50" id="s_con" oninput="recalc()">
+      <div class="sl-note">Personas reales en su WhatsApp/redes</div>
+    </div>
+    <div class="sl">
+      <div class="sl-top"><span class="sl-name">% apertura del catálogo / mes</span><span class="sl-val" id="v_aper">30</span>%</div>
+      <input type="range" min="5" max="65" value="30" step="1" id="s_aper" oninput="recalc()">
+      <div class="sl-note">% de sus contactos que abren al menos 1 vez/mes</div>
+    </div>
+    <div class="sl">
+      <div class="sl-top"><span class="sl-name">Visitas / mes por página web</span><span class="sl-val" id="v_web">80</span></div>
+      <input type="range" min="10" max="800" value="80" step="10" id="s_web" oninput="recalc()">
+      <div class="sl-note">Promedio realista microempresa local: 50–150/mes</div>
+    </div>
+  </div>
+  <div class="res-card">
+    <h4>Resultados mensuales</h4>
+    <div class="rr"><span class="rl">Personas únicas vía catálogos</span><span class="rv" id="r_cat">—</span></div>
+    <div class="rr"><span class="rl">Visitas vía páginas web</span><span class="rv" id="r_web">—</span></div>
+    <div class="rr tot"><span class="rl">Total / mes que ven la campaña</span><span class="rv" id="r_total">—</span></div>
+    <div class="rr"><span class="rl">Acumulado 6 meses</span><span class="rv" id="r_6m">—</span></div>
+    <div class="rr"><span class="rl">Acumulado 12 meses</span><span class="rv" id="r_12m">—</span></div>
+    <div class="rr"><span class="rl">Acumulado hasta oct 2027 (16 meses)</span><span class="rv" id="r_16m">—</span></div>
+  </div>
+  <div class="chart-card">
+    <h4>Proyección acumulada — personas que ven la campaña</h4>
+    <div style="position:relative;height:200px">
+      <canvas id="alcChart" role="img" aria-label="Proyección acumulada de alcance mensual">Crecimiento acumulado mensual.</canvas>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════ OBJETIVOS ════ -->
+<div id="pg-objetivos" class="page">
+<div class="wrap">
+  <div class="sh"><h2>Objetivos Estratégicos</h2><p>Toca la <strong style="color:var(--gold)">i</strong> para ver cómo se implementa cada objetivo</p></div>
+  <div class="obj-list" id="obj-list"></div>
+</div>
+</div>
+
+<!-- ════ CONTROL REGIONAL ════ -->
+<div id="pg-control" class="page">
+<div class="wrap">
+  <div class="sh"><h2>Control Regional</h2><p>Selecciona un municipio para ver datos reales y calcular impacto</p></div>
+
+  <!-- GRID DE MUNICIPIOS -->
+  <div class="muni-grid" id="muni-grid"></div>
+
+  <!-- PANEL DETALLE -->
+  <div class="muni-panel" id="muni-panel">
+    <div class="mp-empty">
+      <div style="font-size:1.8rem;margin-bottom:0.5rem">📍</div>
+      Selecciona un municipio arriba<br>para ver sus datos y calcular impacto
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ── BOTÓN WHATSAPP FLOTANTE ── -->
+<a id="wa-float" class="wa-btn" href="#" target="_blank" rel="noopener">
+  <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  
+</a>
+
+<script>
+// ── PÁGINA ACTIVA (para el mensaje WA) ──
+let currentPage = 'propuesta';
+
+const WA_MSGS = {
+  propuesta:  'Hola KAFEL 👋 Estoy interesado/a en la *Propuesta de Digitalización para Campaña Política*. Me gustaría conocer más detalles sobre cómo funciona y qué incluye.',
+  alcance:    'Hola KAFEL 👋 Revisé la *Calculadora de Alcance* de la propuesta y tengo preguntas sobre cómo se proyectan los números de visibilidad para la campaña. ¿Podemos hablar?',
+  objetivos:  'Hola KAFEL 👋 Estoy viendo los *Objetivos Estratégicos* de la propuesta y me gustaría profundizar en cómo se implementan. ¿Tienen disponibilidad para una reunión?',
+  control:    'Hola KAFEL 👋 Estoy explorando el *Control Regional de Risaralda* en la propuesta y quiero entender mejor el impacto por municipio. ¿Podemos agendar una llamada?'
+};
+
+function updateWA(){
+  const msg = encodeURIComponent(WA_MSGS[currentPage] || WA_MSGS.propuesta);
+  document.getElementById('wa-float').href = `https://wa.me/573114055230?text=${msg}`;
+}
+
+// ── NAVEGACIÓN ──
+function go(id, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('pg-'+id).classList.add('on');
+  btn.classList.add('on');
+  currentPage = id;
+  updateWA();
+  if(id==='alcance') setTimeout(recalc,60);
+  if(id==='control') buildMuniGrid();
+}
+
+// ── FORMATO ──
+function fmt(n){
+  n=Math.round(n);
+  if(n>=1000000) return (n/1000000).toFixed(2).replace(/\.?0+$/,'')+'M';
+  if(n>=1000)    return (n/1000).toFixed(1).replace(/\.0$/,'')+'K';
+  return n.toLocaleString('es-CO');
+}
+function fmtF(n){return Math.round(n).toLocaleString('es-CO')}
+
+// ── CALCULADORA ALCANCE ──
+let chrt=null;
+function recalc(){
+  const emp  = +document.getElementById('s_emp').value;
+  const cat  = Math.min(+document.getElementById('s_cat').value, emp);
+  const pag  = +document.getElementById('s_pag').value;
+  const con  = +document.getElementById('s_con').value;
+  const aper = +document.getElementById('s_aper').value/100;
+  const web  = +document.getElementById('s_web').value;
+
+  document.getElementById('v_emp').textContent  = emp;
+  document.getElementById('v_cat').textContent  = cat;
+  document.getElementById('v_pag').textContent  = pag;
+  document.getElementById('v_con').textContent  = con;
+  document.getElementById('v_aper').textContent = Math.round(aper*100);
+  document.getElementById('v_web').textContent  = web;
+
+  // catálogos × contactos únicos × % apertura (sin inflar)
+  const alcCat = Math.round(cat * con * aper);
+  const alcWeb = Math.round(pag * web);
+  const total  = alcCat + alcWeb;
+
+  document.getElementById('r_cat').textContent   = fmt(alcCat);
+  document.getElementById('r_web').textContent   = fmt(alcWeb);
+  document.getElementById('r_total').textContent = fmt(total);
+  document.getElementById('r_6m').textContent    = fmt(total*6);
+  document.getElementById('r_12m').textContent   = fmt(total*12);
+  document.getElementById('r_16m').textContent   = fmt(total*16);
+
+  const labs=[], data=[];
+  for(let i=1;i<=16;i++){labs.push('M'+i);data.push(total*i);}
+
+  if(!chrt){
+    chrt=new Chart(document.getElementById('alcChart'),{
+      type:'line',
+      data:{labels:labs,datasets:[{
+        data,borderColor:'#C9A84C',backgroundColor:'rgba(201,168,76,0.06)',
+        tension:0.3,fill:true,pointRadius:1.5,pointBackgroundColor:'#C9A84C',borderWidth:2
+      }]},
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:false}},
+        scales:{
+          y:{ticks:{callback:v=>fmt(v),font:{size:9},color:'#5A6070'},grid:{color:'rgba(255,255,255,0.04)'},border:{display:false}},
+          x:{ticks:{font:{size:8},color:'#5A6070',maxTicksLimit:10},grid:{display:false},border:{display:false}}
+        }
+      }
+    });
+  } else {
+    chrt.data.labels=labs;
+    chrt.data.datasets[0].data=data;
+    chrt.update();
+  }
+}
+
+// ── OBJETIVOS ──
+const OBJS=[
+  {t:'Reconocimiento regional',i:'Cada catálogo activo lleva la campaña integrada. Con 40+ catálogos en circulación diaria en Risaralda, el nombre de la candidata llega a personas nuevas constantemente sin pauta adicional.'},
+  {t:'Red de contactos empresariales',i:'Al entregar el servicio digital se obtiene contacto directo con el gerente o dueño — una base de tomadores de decisión local imposible de construir con publicidad convencional.'},
+  {t:'Creación de grupo empresarial',i:'Los empresarios vinculados pueden integrarse en una red informal con la candidata como gestora visible, generando cohesión y voz colectiva a su favor.'},
+  {t:'Crecimiento de base política',i:'El empresario apoyado y su entorno cercano (familia, empleados, clientes) se convierten en seguidores naturales. El apoyo viene de acción real, no de promesas.'},
+  {t:'Posicionamiento no perecedero',i:'Una página web funciona 24/7 durante años. La visibilidad de la campaña continúa activa después de las elecciones, consolidando el perfil político a largo plazo.'},
+  {t:'Fidelidad del electorado',i:'El empresario que recibió un beneficio tangible antes de la elección desarrolla lealtad genuina y la transmite a su red cercana de forma orgánica.'},
+  {t:'Apoyo al emprendimiento',i:'La propuesta tiene un componente de política pública real: impulso demostrable a la economía local antes de ser elegida. Genera credibilidad concreta.'},
+  {t:'Credibilidad y confianza',i:'Actuar antes de ser elegida demuestra capacidad de gestión real. La digitalización de un negocio es un hecho visible y medible donde los discursos no llegan.'},
+  {t:'Exposición por cliente',i:'1 empresario con 400 contactos y 30% de apertura = 120 personas/mes que ven la campaña. Multiplica ese número por los catálogos activos totales.'},
+  {t:'Impacto e interés social',i:'El apoyo a la economía local genera cobertura mediática orgánica, conversación en redes y reconocimiento de líderes comunitarios sin costo adicional de pauta.'},
+  {t:'Apoyo social comunitario',i:'La presencia en sectores productivos genera respaldo de asociaciones, juntas de acción comunal y líderes barriales, ampliando la base de apoyo más allá del empresariado.'}
+];
+
+const ol=document.getElementById('obj-list');
+OBJS.forEach((o,i)=>{
+  const d=document.createElement('div');
+  d.className='oi';
+  d.innerHTML=`<div class="on">${String(i+1).padStart(2,'0')}</div>
+    <div class="ob">
+      <div class="ot">${o.t} <span class="ib" onclick="ttip(event,${i})">i</span></div>
+      <div class="tip" id="tt-${i}">${o.i}</div>
+    </div>`;
+  ol.appendChild(d);
+});
+function ttip(e,i){
+  e.stopPropagation();
+  document.querySelectorAll('.tip').forEach((t,j)=>{if(j!==i)t.classList.remove('show')});
+  document.getElementById('tt-'+i).classList.toggle('show');
+}
+document.addEventListener('click',()=>document.querySelectorAll('.tip').forEach(t=>t.classList.remove('show')));
+
+// ── DATOS MUNICIPIOS ──
+const MD=[
+  {id:'pereira',      name:'Pereira',           desc:'Capital departamental',         votantes:377378, empresas:22750, color:'#1A4A8A'},
+  {id:'dosquebradas', name:'Dosquebradas',       desc:'2° municipio más poblado',      votantes:141950, empresas:6500,  color:'#8A2020'},
+  {id:'santarosa',    name:'Santa Rosa de Cabal',desc:'Municipio cafetero',            votantes:56234,  empresas:3200,  color:'#1A6A2A'},
+  {id:'lavirginia',   name:'La Virginia',        desc:'Nodo comercial occidente',      votantes:29774,  empresas:1150,  color:'#8A4A1A'},
+  {id:'belen',        name:'Belén de Umbría',    desc:'Eje cafetero occidente',        votantes:20783,  empresas:425,   color:'#7A2A2A'},
+  {id:'quinchia',     name:'Quinchía',           desc:'Municipio minero-cafetero',     votantes:19061,  empresas:375,   color:'#4A2A7A'},
+  {id:'marsella',     name:'Marsella',           desc:'Municipio turístico',           votantes:15270,  empresas:325,   color:'#5A2A6A'},
+  {id:'santuario',    name:'Santuario',          desc:'Municipio cafetero sur',        votantes:12223,  empresas:475,   color:'#1A5A3A'},
+  {id:'mistrato',     name:'Mistrató',           desc:'Municipio rural norte',         votantes:10418,  empresas:135,   color:'#1A5A7A'},
+  {id:'apia',         name:'Apía',               desc:'Municipio cafetero occidente',  votantes:10259,  empresas:275,   color:'#6A5A1A'},
+  {id:'guatica',      name:'Guática',            desc:'Municipio montañoso norte',     votantes:10134,  empresas:225,   color:'#4A5A1A'},
+  {id:'pueblorico',   name:'Pueblo Rico',        desc:'Municipio rural occidental',    votantes:8310,   empresas:165,   color:'#5A4A1A'},
+  {id:'lacelia',      name:'La Celia',           desc:'Municipio pequeño sur',         votantes:6287,   empresas:90,    color:'#1A5A5A'},
+  {id:'balboa',       name:'Balboa',             desc:'Municipio agrícola sur',        votantes:5409,   empresas:100,   color:'#4A3A1A'}
+];
+
+let selectedMuni = null;
+
+function buildMuniGrid(){
+  const grid = document.getElementById('muni-grid');
+  if(grid.children.length > 0) return; // ya construido
+  MD.forEach(m=>{
+    const card = document.createElement('div');
+    card.className = 'muni-card';
+    card.id = 'mc-'+m.id;
+    card.style.cssText += `--mc:${m.color}`;
+    card.innerHTML = `
+      <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:${m.color};border-radius:3px 0 0 3px"></div>
+      <div class="mc-name">${m.name}</div>
+      <div class="mc-sub">${fmtF(m.votantes)} votantes</div>
+      <div class="mc-badge">${fmtF(m.empresas)} empresas</div>`;
+    card.addEventListener('click',()=>selMuni(m.id));
+    grid.appendChild(card);
+  });
+}
+
+function selMuni(id){
+  document.querySelectorAll('.muni-card').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('mc-'+id).classList.add('sel');
+  selectedMuni = id;
+  renderPanel(id);
+  // scroll al panel
+  setTimeout(()=>document.getElementById('muni-panel').scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+
+function renderPanel(id){
+  const m = MD.find(x=>x.id===id);
+  const defCat = Math.max(1, Math.round(m.empresas*0.04));
+  const defCon = 350;
+  const defAp  = 28;
+  const densidad = ((m.empresas/m.votantes)*100).toFixed(2);
+
+  document.getElementById('muni-panel').innerHTML=`
+    <div class="mp-head">
+      <div class="mp-dot" style="background:${m.color}"></div>
+      <div>
+        <div class="mp-name">${m.name}</div>
+        <div class="mp-desc">${m.desc}</div>
+      </div>
+    </div>
+
+    <div class="data-grid">
+      <div class="dc"><div class="dl">Votantes habilitados</div><div class="dv gold">${fmtF(m.votantes)}</div></div>
+      <div class="dc"><div class="dl">Empresas en C&amp;C</div><div class="dv">${fmtF(m.empresas)}</div></div>
+      <div class="dc"><div class="dl">Densidad empresarial</div><div class="dv">${densidad}%</div></div>
+      <div class="dc"><div class="dl">Catálogos iniciales (4%)</div><div class="dv">${defCat}</div></div>
+    </div>
+
+    <div class="calc-mini">
+      <h5>Calculadora de impacto local</h5>
+      <div class="msl">
+        <label>Catálogos activos</label>
+        <input type="range" min="1" max="${Math.min(m.empresas,200)}" value="${defCat}" step="1" id="mc_cat" oninput="calcM('${id}')">
+        <span id="mc_cat_v">${defCat}</span>
+      </div>
+      <div class="msl">
+        <label>Contactos/empresario</label>
+        <input type="range" min="50" max="1200" value="${defCon}" step="50" id="mc_con" oninput="calcM('${id}')">
+        <span id="mc_con_v">${defCon}</span>
+      </div>
+      <div class="msl">
+        <label>% apertura catálogo</label>
+        <input type="range" min="5" max="60" value="${defAp}" step="1" id="mc_ap" oninput="calcM('${id}')">
+        <span id="mc_ap_v">${defAp}%</span>
+      </div>
+    </div>
+
+    <div class="impact-box" id="impact-box">Calculando...</div>
+
+    <div class="fnote">
+      Fórmula: catálogos × contactos únicos × % apertura = personas/mes que ven la campaña.<br>
+      % padrón = alcance mensual ÷ votantes habilitados × 100.
+    </div>`;
+
+  calcM(id);
+}
+
+function calcM(id){
+  const m   = MD.find(x=>x.id===id);
+  const cat = +document.getElementById('mc_cat').value;
+  const con = +document.getElementById('mc_con').value;
+  const ap  = +document.getElementById('mc_ap').value/100;
+
+  document.getElementById('mc_cat_v').textContent = cat;
+  document.getElementById('mc_con_v').textContent = con;
+  document.getElementById('mc_ap_v').textContent  = Math.round(ap*100)+'%';
+
+  const alcM = Math.round(cat * con * ap);
+  const pct  = Math.min((alcM/m.votantes*100),100).toFixed(1);
+  const acum = alcM * 16;
+
+  document.getElementById('impact-box').innerHTML=`
+    <span class="impact-num">${fmtF(alcM)}</span>
+    <div class="impact-lbl">personas/mes alcanzan la campaña en ${m.name}</div>
+    <div class="impact-pct">${pct}% del padrón electoral mensual</div>
+    <div class="impact-acum">Acumulado hasta oct 2027: <strong>${fmt(acum)}</strong> impactos</div>`;
+}
+
+// INIT
+updateWA();
+recalc();
+</script>
+</body>
+</html>
