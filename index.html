@@ -280,7 +280,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   <div class="hero">
     <div class="pill">Propuesta Estratégica · Risaralda · Oct 2027</div>
     <h1>Publicidad que <span>nunca</span> deja de trabajar</h1>
-    <p>Cada catálogo digital y página web que KAFEL crea lleva la campaña incorporada. Mientras el empresario venda y sus clientes compren, la campaña sigue apareciendo — sin costo adicional y sin fecha de vencimiento.</p>
+    <p>Cada catálogo digital que KAFEL crea lleva la campaña incorporada. Mientras el empresario venda y sus clientes compren, la campaña sigue apareciendo — sin costo adicional y sin fecha de vencimiento.</p>
   </div>
   <div class="kpi-row">
     <div class="kpi"><span class="kpi-n">+500</span><span class="kpi-l">Días de visibilidad</span></div>
@@ -290,12 +290,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   <div class="card gl">
     <div class="cat-lbl">El problema</div>
     <h3>La publicidad física es momentánea</h3>
-    <p>Un volante dura horas. Un pendón se ve solo mientras estás frente a él. Con KAFEL, cada catálogo o página web que el empresario comparte es publicidad activa de la campaña: cada vez que vende, apareces tú.</p>
+    <p>Un volante dura horas. Un pendón se ve solo mientras estás frente a él. Con KAFEL, cada catálogo que el empresario comparte es publicidad activa de la campaña: cada vez que vende, apareces tú.</p>
   </div>
   <div class="card gl">
     <div class="cat-lbl">La solución</div>
     <h3>Digitalización con propósito político</h3>
-    <p>KAFEL crea catálogos interactivos y páginas web para micro, pequeños y medianos empresarios de Risaralda. En cada recurso, la campaña tiene presencia integrada. El empresario comparte → los clientes ven → la campaña gana reconocimiento orgánico, constante y escalable.</p>
+    <p>KAFEL crea catálogos interactivos para micro, pequeños y medianos empresarios de Risaralda. En cada recurso, la campaña tiene presencia integrada. El empresario comparte → los clientes ven → la campaña gana reconocimiento orgánico, constante y escalable.</p>
   </div>
   <div class="card">
     <div class="cat-lbl">Triple beneficio</div>
@@ -313,10 +313,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   <div class="sh"><h2>Calculadora de Alcance</h2><p>Proyección realista — números verificables</p></div>
   <div class="formula-box">
     <strong>Fórmula exacta:</strong><br>
-    · Catálogo: catálogos × contactos únicos × % apertura = personas/mes<br>
-    · Web: páginas × visitas/mes<br>
-    · Total = catálogos + web · Acumulado = total × meses<br>
-    <br><span style="color:var(--text3)">Ej. base: 40 × 400 × 30% = 4.800 + 10 × 80 = 800 = <strong style="color:var(--gold)">5.600/mes</strong></span>
+    · Personas/mes = catálogos × contactos únicos × % apertura<br>
+    · Acumulado = personas/mes × meses<br>
+    <br><span style="color:var(--text3)">Ej. base: 40 × 400 × 30% = <strong style="color:var(--gold)">4.800/mes</strong></span>
   </div>
   <div class="slider-card">
     <h4>Parámetros</h4>
@@ -331,11 +330,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       <div class="sl-note">Subconjunto con catálogo activo</div>
     </div>
     <div class="sl">
-      <div class="sl-top"><span class="sl-name">Con página web</span><span class="sl-val" id="v_pag">10</span></div>
-      <input type="range" min="0" max="200" value="10" step="1" id="s_pag" oninput="recalc()">
-      <div class="sl-note">Subconjunto con página web</div>
-    </div>
-    <div class="sl">
       <div class="sl-top"><span class="sl-name">Contactos únicos / empresario</span><span class="sl-val" id="v_con">400</span></div>
       <input type="range" min="50" max="1500" value="400" step="50" id="s_con" oninput="recalc()">
       <div class="sl-note">Personas reales en su WhatsApp/redes</div>
@@ -345,17 +339,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       <input type="range" min="5" max="65" value="30" step="1" id="s_aper" oninput="recalc()">
       <div class="sl-note">% de sus contactos que abren al menos 1 vez/mes</div>
     </div>
-    <div class="sl">
-      <div class="sl-top"><span class="sl-name">Visitas / mes por página web</span><span class="sl-val" id="v_web">80</span></div>
-      <input type="range" min="10" max="800" value="80" step="10" id="s_web" oninput="recalc()">
-      <div class="sl-note">Promedio realista microempresa local: 50–150/mes</div>
-    </div>
   </div>
   <div class="res-card">
     <h4>Resultados mensuales</h4>
-    <div class="rr"><span class="rl">Personas únicas vía catálogos</span><span class="rv" id="r_cat">—</span></div>
-    <div class="rr"><span class="rl">Visitas vía páginas web</span><span class="rv" id="r_web">—</span></div>
-    <div class="rr tot"><span class="rl">Total / mes que ven la campaña</span><span class="rv" id="r_total">—</span></div>
+    <div class="rr tot"><span class="rl">Personas únicas / mes que ven la campaña</span><span class="rv" id="r_total">—</span></div>
     <div class="rr"><span class="rl">Acumulado 6 meses</span><span class="rv" id="r_6m">—</span></div>
     <div class="rr"><span class="rl">Acumulado 12 meses</span><span class="rv" id="r_12m">—</span></div>
     <div class="rr"><span class="rl">Acumulado hasta oct 2027 (16 meses)</span><span class="rv" id="r_16m">—</span></div>
@@ -472,7 +459,7 @@ const WA_MSGS = {
   propuesta:  'Hola KAFEL 👋 Estoy interesado/a en la *Propuesta de Digitalización para Campaña Política*. Me gustaría conocer más detalles sobre cómo funciona y qué incluye.',
   alcance:    'Hola KAFEL 👋 Revisé la *Calculadora de Alcance* de la propuesta y tengo preguntas sobre cómo se proyectan los números de visibilidad para la campaña. ¿Podemos hablar?',
   objetivos:  'Hola KAFEL 👋 Estoy viendo los *Objetivos Estratégicos* de la propuesta y me gustaría profundizar en cómo se implementan. ¿Tienen disponibilidad para una reunión?',
-  ejemplos:   'Hola KAFEL 👋 Vi los *Ejemplos* de catálogos y páginas web de la propuesta y me gustaría saber cómo se adaptaría a otros tipos de negocio. ¿Podemos hablar?',
+  ejemplos:   'Hola KAFEL 👋 Vi los *Ejemplos* de catálogos de la propuesta y me gustaría saber cómo se adaptaría a otros tipos de negocio. ¿Podemos hablar?',
   control:    'Hola KAFEL 👋 Estoy explorando el *Control Regional de Risaralda* en la propuesta y quiero entender mejor el impacto por municipio. ¿Podemos agendar una llamada?'
 };
 
@@ -507,25 +494,18 @@ let chrt=null;
 function recalc(){
   const emp  = +document.getElementById('s_emp').value;
   const cat  = Math.min(+document.getElementById('s_cat').value, emp);
-  const pag  = +document.getElementById('s_pag').value;
   const con  = +document.getElementById('s_con').value;
   const aper = +document.getElementById('s_aper').value/100;
-  const web  = +document.getElementById('s_web').value;
 
   document.getElementById('v_emp').textContent  = emp;
   document.getElementById('v_cat').textContent  = cat;
-  document.getElementById('v_pag').textContent  = pag;
   document.getElementById('v_con').textContent  = con;
   document.getElementById('v_aper').textContent = Math.round(aper*100);
-  document.getElementById('v_web').textContent  = web;
 
   // catálogos × contactos únicos × % apertura (sin inflar)
   const alcCat = Math.round(cat * con * aper);
-  const alcWeb = Math.round(pag * web);
-  const total  = alcCat + alcWeb;
+  const total  = alcCat;
 
-  document.getElementById('r_cat').textContent   = fmt(alcCat);
-  document.getElementById('r_web').textContent   = fmt(alcWeb);
   document.getElementById('r_total').textContent = fmt(total);
   document.getElementById('r_6m').textContent    = fmt(total*6);
   document.getElementById('r_12m').textContent   = fmt(total*12);
@@ -563,7 +543,7 @@ const OBJS=[
   {t:'Red de contactos empresariales',i:'Al entregar el servicio digital se obtiene contacto directo con el gerente o dueño — una base de tomadores de decisión local imposible de construir con publicidad convencional.'},
   {t:'Creación de grupo empresarial',i:'Los empresarios vinculados pueden integrarse en una red informal con la candidata como gestora visible, generando cohesión y voz colectiva a su favor.'},
   {t:'Crecimiento de base política',i:'El empresario apoyado y su entorno cercano (familia, empleados, clientes) se convierten en seguidores naturales. El apoyo viene de acción real, no de promesas.'},
-  {t:'Posicionamiento no perecedero',i:'Una página web funciona 24/7 durante años. La visibilidad de la campaña continúa activa después de las elecciones, consolidando el perfil político a largo plazo.'},
+  {t:'Posicionamiento no perecedero',i:'Un catálogo digital funciona 24/7 durante años. La visibilidad de la campaña continúa activa después de las elecciones, consolidando el perfil político a largo plazo.'},
   {t:'Fidelidad del electorado',i:'El empresario que recibió un beneficio tangible antes de la elección desarrolla lealtad genuina y la transmite a su red cercana de forma orgánica.'},
   {t:'Apoyo al emprendimiento',i:'La propuesta tiene un componente de política pública real: impulso demostrable a la economía local antes de ser elegida. Genera credibilidad concreta.'},
   {t:'Credibilidad y confianza',i:'Actuar antes de ser elegida demuestra capacidad de gestión real. La digitalización de un negocio es un hecho visible y medible donde los discursos no llegan.'},
